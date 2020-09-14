@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "static_pages#home"
+  get "sessions/new"
   get "users/show"
   get "users/new"
   get "/help", to: "static_pages#help"
@@ -8,4 +9,8 @@ Rails.application.routes.draw do
   get "/signup", to: "users#new"
 
   resources :users, only: %i(show new)
+
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
 end

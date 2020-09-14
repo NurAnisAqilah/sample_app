@@ -13,6 +13,8 @@ gem "sass-rails", ">= 6"
 
 gem "bootstrap-sass", "3.4.1"
 
+gem "jquery-rails", "4.3.1"
+
 gem "webpacker", "~> 4.0"
 
 gem "turbolinks", "~> 5"

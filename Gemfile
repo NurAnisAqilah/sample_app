@@ -23,13 +23,15 @@ gem "bcrypt", "~> 3.1.7"
 
 gem "faker", "1.7.3"
 
-gem "kaminari", "3.1.5"
+gem "kaminari"
 
-gem "bootstrap-kaminari", "1.0.0"
+gem "bootstrap-kaminari-views"
 
 gem "bootsnap", ">= 1.4.2", require: false
 
 gem "rails-i18n"
+
+gem "sqlite3"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
@@ -47,8 +49,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
   gem "rubocop", "~> 0.74.0", require: false

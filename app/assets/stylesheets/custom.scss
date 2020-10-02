@@ -41,67 +41,65 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $white;
+  color: $gray-light;
+
 }
-p {
+  p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
 
 /* header */
+
 #logo {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: $red;
+  color: $blue;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
+  &:hover {
+    color: white;
+    text-decoration: none;
+    }
 }
 
-#logo:hover {
-  color: $white;
-  text-decoration: none;
-}
 
-/* hide images 
-img {
-  display: none;
-}*/
+/*footer*/
 
-/* footer */
 footer {
-  margin-top: 45px;
+  margin-top: 400px;
   padding-top: 5px;
   border-top: 1px solid $red;
-  color: $grey;
+  color: $gray-light;
+  a {
+    color: $gray;
+    &:hover{
+      color: $gray-darker;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
 }
-footer a {
-  color: $darkgrey;
-}
-footer a:hover {
-  color: $black;
-}
-footer small {
-  float: left;
-}
-footer ul {
-  float: right;
-  list-style: none;
-}
-footer ul li {
-  float: left;
-  margin-left: 15px;
-}
-
-@mixin box_sizing {
+@mixin box_sizing{
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* miscellaneous */
+/*miscellaneous*/
+
 .debug_dump {
   clear: both;
   float: left;
@@ -110,9 +108,10 @@ footer ul li {
   @include box_sizing;
 }
 
-/* sidebar */
+/*sidebar*/
+
 aside {
-  section.user_info {
+  section.user_info{
     margin-top: 20px;
   }
 
@@ -120,7 +119,7 @@ aside {
     padding: 10px 0;
     margin-top: 20px;
     
-    &:first-child {
+    &:first-child{
       border: 0;
       padding-top: 0;
     }
@@ -132,7 +131,7 @@ aside {
     }
 
     h1 {
-      font-size: 1.4em;
+      font-size: 1.4cm;
       text-align: left;
       letter-spacing: -1px;
       margin-bottom: 3px;
@@ -150,9 +149,50 @@ aside {
   margin-top: 15px;
 }
 
-/* forms */
+.stats {
+  overflow: auto;
+  margin-top: 0;
+  padding: 0;
+
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $gray-lighter;
+    color: gray;
+    &:first-child {
+    padding-left: 0;
+    border: 0;
+    }&
+    :hover {
+      text-decoration: none;
+      color: blue;
+    }
+  }
+  strong {
+    display: block;
+    }
+  }
+
+  .user_avatars {
+    overflow: auto;
+    margin-top: 10px;
+
+    .gravatar {
+      margin: 1px 1px;
+    }
+    a {
+      padding: 0;
+    }
+  }
+
+.users.follow {
+  padding: 0;
+}
+
+/*forms*/
+
 input, textarea, select, .uneditable-input {
-  border: 1px solid $mediumlightgrey;
+  border: 1px solid $gray-darker;
   width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
@@ -162,49 +202,47 @@ input {
   height: auto !important;
 }
 
-input.btn.btn-primary {
-  margin-top: 20px;
-}
-
 #error_explanation {
-  color: $red;
-  ul {
-  color: $red;
-  margin: 0 0 30px;
+  color:$red;
+  ul{
+    color:$red;
+    margin: 0 0 30px 0;
   }
 }
 
 .field_with_errors {
   @extend .has-error;
   .form-control {
-  color: $state-danger-text;
+    color: $state-danger-text;
   }
 }
 
-.checkbox {
-  margin-bottom: 10px;
-  margin-top: 10px;
 
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  
   span {
-    font-weight: normal;
     margin-left: 20px;
+    font-weight: normal;
   }
 }
 
 #session_remember_me {
-  margin-left: 0;
   width: auto;
+  margin-left: 0;
 }
 
-/* Users index */
-.users {
+/*Users index*/
+
+.user {
   list-style: none;
   margin: 0;
 
   li {
     overflow: auto;
     padding: 10px 0;
-    border-bottom: 1px solid $lightgrey;
+    border-bottom: 1px solid $darkyellow;
   }
 }
 

@@ -1,23 +1,11 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: %i(show new create)
-  before_action :load_user, only: %i(index new create)
   before_action :correct_user, only: %i(edit update)
-  before_action :admin_user, only: :destroy 
-  
-  def show
-    @user = User.find_by id: params[:id]
-    return if @user 
-   
-    flash[:danger] = "User not found!"
-    redirect_to root_path
-  end
+  before_action :admin_user, only: :destroy
+  before_action :load_user, except: %i(index new create)
 
   def index
-    @users = User.page(params[:page]).per Settings.paging
-  end
-
-  def new
-    @user = User.new
+    @users = User.sort_by_name.page params[:page]
   end
 
   def show
@@ -29,66 +17,71 @@ class UsersController < ApplicationController
     @user = User.new user_params
     if @user.save
       @user.send_activation_email
-      UserMailer.account_activation(@user).deliver_now
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
     else
-      flash[:danger] = t "user.new.danger"
+      
+      flash.now[:danger] = "Error, please try again."
       render :new
     end
-  end  
-  
-  def edit
-    @user = User.find_by id: params[:id]
   end
 
+  def edit; end
+
   def update
-    @user = User.find_by id: params[:id]
-    if @user.update_attributes user_params
-      flash[:success] = t "user.update"
+    if @user.update user_params
+      flash[:success] = "Profile updated!"
       redirect_to @user
     else
-      flash.now[:danger] = t "user.update_fail"
+      flash.now[:danger] = "Update failed."
       render :edit
     end
   end
-  
+
   def destroy
     if @user.destroy
-      flash[:success] = t "user.delete"
+      flash[:success] = "User deleted"
     else
-      flash[:danger] = t "user.delete_fail"
+      flash[:danger] = "User is not deleted"
     end
-    redirect_to users_path
+    redirect_to users_url
+  end
+
+  def followers
+    @title = "Followers"
+    @users = @user.followers.paginate(page: params[:page])
+    render "show_follow"
   end
 
   private
   
   def user_params
-    params.require:(user).permit :name, :email, :password, :password_confirmation
+    params.require(:user).permit User::USERS_PARAMS
   end
 
   def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = t "user.error.login"
-      redirect_to login_url
-    end
+    return unless logged_in?
+    
+    store_location
+    flash[:danger] = "Please log in."
+    redirect_to login_url
   end
-
+  
   def load_user
     @user = User.find_by id: params[:id]
-    return if @user.present?
+    return if @user
 
-    flash[:warning] = t "user.new.absent"
-    redirect_to root_path
+    flash[:danger] = "Message"
+    redirect_to root_url
   end
 
   def correct_user
-    redirect_to root_path unless current_user? @user
+    @user = User.find_by id: params[:id]
+    return if current_user? @user
+    redirect_to root_url
   end
 
   def admin_user
-    redirect_to root_url unless current_user.admin?  
+    redirect_to(root_url) unless current_user.admin?
   end
 end
